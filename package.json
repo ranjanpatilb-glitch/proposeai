@@ -13,9 +13,9 @@
     "react-dom": "^18",
     "@supabase/supabase-js": "^2.43.0",
     "@supabase/ssr": "^0.3.0",
-    "stripe": "^15.7.0",
-    "@stripe/stripe-js": "^3.4.0",
-    "anthropic": "^0.40.0"
+    "stripe": "^14.0.0",
+    "@stripe/stripe-js": "^2.0.0",
+    "anthropic": "^0.32.0"
   },
   "devDependencies": {
     "typescript": "^5",
@@ -24,4 +24,3 @@
     "@types/react-dom": "^18"
   }
 }
-
