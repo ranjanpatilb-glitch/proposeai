@@ -1,10 +1,10 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '../../lib/supabase'
-
-export default function AuthPage() {
+ 
+function AuthContent() {
   const router = useRouter()
   const params = useSearchParams()
   const [mode, setMode] = useState('login')
@@ -12,13 +12,13 @@ export default function AuthPage() {
   const [error, setError] = useState('')
   const [form, setForm] = useState({ email: '', password: '', name: '', agency: '' })
   const supabase = createClient()
-
+ 
   useEffect(() => {
     if (params.get('mode') === 'signup') setMode('signup')
   }, [params])
-
+ 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
-
+ 
   async function handleLogin(e) {
     e.preventDefault()
     setLoading(true); setError('')
@@ -26,7 +26,7 @@ export default function AuthPage() {
     if (error) { setError(error.message); setLoading(false); return }
     router.push('/dashboard')
   }
-
+ 
   async function handleSignup(e) {
     e.preventDefault()
     if (!form.name || !form.agency) { setError('Please fill in all fields'); return }
@@ -39,7 +39,7 @@ export default function AuthPage() {
     if (error) { setError(error.message); setLoading(false); return }
     router.push('/dashboard')
   }
-
+ 
   return (
     <div>
       <nav>
@@ -51,7 +51,7 @@ export default function AuthPage() {
           <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, fontWeight: 700, marginBottom: 28, textAlign: 'center' }}>
             Propose<span style={{ color: 'var(--accent)' }}>AI</span>
           </div>
-
+ 
           {mode === 'login' ? (
             <form onSubmit={handleLogin}>
               <div style={{ fontFamily: 'var(--font-display)', fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Welcome back</div>
@@ -84,5 +84,13 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  )
+}
+ 
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}><div className="spinner"></div></div>}>
+      <AuthContent />
+    </Suspense>
   )
 }
