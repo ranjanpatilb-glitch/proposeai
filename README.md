@@ -197,3 +197,5 @@ proposeai/
 ---
 
 Built with Next.js 14 · Supabase · Stripe · Anthropic Claude API
+
+
