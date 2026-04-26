@@ -1,4 +1,4 @@
-import Anthropic from 'anthropic'
+import Anthropic from '@anthropic-ai/sdk'
 import { SYSTEM_PROMPT, buildUserPrompt } from '../../../lib/prompts'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
